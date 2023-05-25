@@ -10,7 +10,9 @@
 #include <unistd.h>
 #include <errno.h>
 
-extern char global_variable;
+#define BUFFER_SIZE 1024
+
+extern char *data;
 
 /**
 * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -50,5 +52,10 @@ void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
 
 /* function prototypes */
+void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code);
+void _free_stack(stack_t **stack);
+int space_check(char *get_line_string);
+
+
 
 #endif
