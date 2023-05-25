@@ -1,6 +1,8 @@
 #include "monty.h"
 /* header */
 
+#define BUFFER_SIZE 1024
+
 /**
 * main - entry point
 *
@@ -10,39 +12,38 @@
 *
 * Return: 0 if success
 */
-int main(int ac, char *av[])
+int main(int argc, char *argv[])
 {
 	unsigned int line_number = 1;
-	char *buffer = NULL;
-	stack_t *stack_cp = NULL;
-	FILE *read_stream = NULL;
-	size_t buffer_len = 0;
-	char *arg = NULL;
+	char buffer[BUFFER_SIZE];
+	FILE *read_stream;
+	char *arg, *opcode;
+	stack_t *stack = NULL;
 
-	if (ac != 2)
+	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	read_stream = fopen(av[1], "r");
+	read_stream = fopen(argv[1], "r");
 	if (read_stream == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
-	while (getline(&buffer, &buffer_len, read_stream) != -1)
+	while (fgets(buffer, BUFFER_SIZE, read_stream))
 	{
-		arg = strtok(buffer, " ");
-		if (arg != NULL && arg[0] != '#')
-			_opcodes(&stack_cp, line_number, arg);
 		line_number++;
-	}
-	free_stack(stack_cp);
 
-	stack_cp = NULL;
-	free(buffer);
+		buffer[strcspn(buffer, "\n")] = '\0';
+		opcode = strtok(buffer, " ");
+		arg = strtok(NULL, " ");
+		stack->n = atoi(arg);
+		_opcodes(&stack, opcode, line_number);
+	}
 	fclose(read_stream);
+	free_stack(&stack);
 	exit(EXIT_SUCCESS);
 }
 
@@ -55,26 +56,21 @@ int main(int ac, char *av[])
 *
 * @buffer_cp: opcode to execute
 */
-void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
+void _opcodes(stack_t **stack, char *opcode, unsigned int line_number)
 {
-	int i = 0;
-
-	instruction_t my_opcodes[] = {
-		{"push", _push},
-		{"pall", _pall},
-		{NULL, NULL}
-	};
-
-	while (my_opcodes[i].opcode)
+	if (strcmp(opcode, "push") == 0)
 	{
-		if (strcmp(my_opcodes[i].opcode, buffer_cp) == 0)
-		{
-			my_opcodes[i].f(stack, line_number);
-			return;
-		}
-		i++;
+		_push(stack, line_number);
+		return;
 	}
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, buffer_cp);
-	free_stack(*stack);
-	exit(EXIT_FAILURE);
+	else if (strcmp(opcode, "pall") == 0)
+	{
+		_pall(stack, line_number);
+		return;
+	}
+	else
+	{
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+		exit(EXIT_FAILURE);
+	}
 }
