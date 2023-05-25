@@ -14,21 +14,24 @@ void _push(stack_t **stack, unsigned int line_number)
 {
 	char argument[128] = "";
 	unsigned int i;
+	char *argument_cp = argument;
 
-	if (argument == NULL)
+	argument_cp = strtok(NULL, " \t\r\n\v\f");
+
+	if (argument_cp == NULL)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	for (i = 0; i < strlen(argument); i++)
+	for (i = 0; i < strlen(argument_cp); i++)
 	{
-		if (!isdigit(argument[i]) && argument[0] != '-')
+		if (!isdigit(argument_cp[i]) && argument_cp[0] != '-')
 		{
 			fprintf(stderr, "L%u: usage: push integer\n", line_number);
 			exit(EXIT_FAILURE);
 		}
 	}
-	add_node(stack, atoi(argument));
+	add_node(stack, atoi(argument_cp));
 }
 
 /**
