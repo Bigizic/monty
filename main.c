@@ -4,9 +4,9 @@ char *data = NULL;
 /**
 * main - entry point
 *
-* ac: vector counter
+* @ac: vector counter
 *
-* av: char
+* @av: char
 *
 * Return: 0 if success
 */
@@ -52,7 +52,7 @@ int main(int ac, char *av[])
 	}
 	_free_stack(stack);
 	fclose(monty_ptr);
-	return (0);
+	exit(EXIT_FAILURE);
 }
 
 /**
