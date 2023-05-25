@@ -78,7 +78,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
 	for (i = 0; op_code[i] != '\0'; i++)
 	{
 		if (op_code[i] == '\n')
-		op_code[i] = '\0';
+			op_code[i] = '\0';
 	}
 
 	codes = strtok(op_code, delim);
@@ -93,8 +93,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
 	}
 
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, op_code);
-	if (*stack != NULL)
-		_free_stack(stack);
+	_free_stack(stack);
 	exit(EXIT_FAILURE);
 }
 
