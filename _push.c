@@ -12,29 +12,18 @@
 */
 void _push(stack_t **stack, unsigned int line_number)
 {
-	char argument[128] = "";
-	size_t i, len;
-	char *argument_cp = argument;
+	char *opcode_arg = strtok(NULL, " ");
+	int data;
 
-	argument_cp = strtok(NULL, " \t\r\n\v\f");
-
-	len = strlen(argument_cp);
-	if (argument_cp == NULL)
+	if (opcode_arg == NULL || !is_number(opcode_arg))
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	for (i = 0; i < len; i++)
-	{
-		if (!isdigit(argument_cp[i]) && argument_cp[i] != '-')
-		{
-			fprintf(stderr, "L%u: usage: push integer\n", line_number);
-			printf("Hello2\n");
-			exit(EXIT_FAILURE);
-		}
-	}
-	add_node(stack, atoi(argument_cp));
+	data = atoi(opcode_arg);
+	add_node(stack, data);
+
 }
 
 /**
@@ -46,7 +35,7 @@ void _push(stack_t **stack, unsigned int line_number)
 */
 void add_node(stack_t **stack, int num)
 {
-	stack_t *first_stack = NULL;
+	stack_t *first_stack;
 
 	first_stack = malloc(sizeof(stack_t));
 	if (first_stack == NULL)
@@ -58,7 +47,6 @@ void add_node(stack_t **stack, int num)
 
 	first_stack->n = num;
 	first_stack->prev = NULL;
-	first_stack->next = NULL;
 
 	if (*stack == NULL)
 		*stack = first_stack;
@@ -68,4 +56,61 @@ void add_node(stack_t **stack, int num)
 		(*stack)->prev = first_stack;
 		*stack = first_stack;
 	}
+}
+
+
+/**
+* add_node_ - pushes an element to the stack
+*
+* @stack: double pointer
+*
+* @argument: int push
+*
+* Return: void
+*/
+void add_node_(stack_t **stack, int argument)
+{
+	stack_t *stack_cp, *last_stack;
+
+	stack_cp = malloc(sizeof(stack_t));
+
+	stack_cp->n = argument;
+	stack_cp->prev = NULL;
+	stack_cp->next = NULL;
+
+	if (*stack == NULL)
+		*stack = stack_cp;
+
+	else
+	{
+		last_stack = *stack;
+		while (last_stack->next != NULL)
+			last_stack = last_stack->next;
+
+		stack_cp->next = NULL;
+		stack_cp->prev = last_stack;
+		last_stack->next = stack_cp;
+	}
+}
+
+/**
+* is_number - checks if a string represents a valid number
+*
+* @str: string to check
+*
+* Return 1 on sunccess otherwise 0
+*/
+int is_number(char *str)
+{
+	if (str == NULL || *str == '\0')
+		return (0);
+
+	if (*str == '-')
+		str++;
+	for (; *str != '\0'; str++)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+	}
+	return (1);
 }
