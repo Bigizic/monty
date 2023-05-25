@@ -59,7 +59,8 @@ int main(int ac, char *av[])
 *
 * Return: void
 */
-void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code, FILE *monty_ptr)
+void execute_opcode(stack_t **stack, unsigned int line_number,
+		char *op_code, FILE *monty_ptr)
 {
 	instruction_t func[] = {
 		{"push", _push},
