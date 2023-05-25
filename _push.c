@@ -49,7 +49,7 @@ void add_node(stack_t **stack, int num)
 	if (first_stack == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
 	first_stack->n = num;
