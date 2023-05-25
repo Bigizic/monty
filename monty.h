@@ -53,6 +53,7 @@ void _pall(stack_t **stack, unsigned int line_number);
 void _opcodes(stack_t **stack, unsigned int line_number, char *buffer);
 void free_stack(stack_t *stack);
 void add_node(stack_t **stack, int num);
-
+void add_node_(stack_t **stack, int argument);
+int is_number(char *str);
 
 #endif
