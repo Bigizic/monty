@@ -20,7 +20,7 @@ void _pall(stack_t **stack, unsigned int line_number)
 
 	while (current_stack != NULL)
 	{
-		fprintf(stdout,"%d\n", current_stack->n);
+		fprintf(stdout, "%d\n", current_stack->n);
 		current_stack = current_stack->next;
 	}
 }
