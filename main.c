@@ -59,6 +59,7 @@ int main(int ac, char *av[])
 void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
 {
 	int i = 0;
+	char *opcode = strtok(buffer_cp, " ");
 
 	instruction_t my_opcodes[] = {
 		{"push", _push},
@@ -68,7 +69,7 @@ void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
 
 	while (my_opcodes[i].opcode)
 	{
-		if (strcmp(my_opcodes[i].opcode, buffer_cp) == 0)
+		if (strcmp(my_opcodes[i].opcode, opcode) == 0)
 		{
 			my_opcodes[i].f(stack, line_number);
 			return;
