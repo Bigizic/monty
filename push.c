@@ -11,8 +11,9 @@
 */
 void _push(stack_t **stack, unsigned int line_number)
 {
-	int i;
 	stack_t *new_node = malloc(sizeof(stack_t));
+	long int value;
+	char *endptr;
 
 	if (new_node == NULL)
 	{fprintf(stderr, "Error: malloc failed");
@@ -23,18 +24,15 @@ void _push(stack_t **stack, unsigned int line_number)
 		free(new_node);
 		_free_stack(stack);
 		exit(EXIT_FAILURE); }
-	for (i = 0; data[i] != '\0'; i++)
-	{
-		if (!isdigit(data[i]))
+	value = strtol(data, &endptr, 10);
+		if (!isdigit(value))
 		{
-			fprintf(stderr, "L%d: usage: push integer2\n", line_number);
+			fprintf(stderr, "L%d: usage: push integer2: %ld\n", line_number, value);
 			free(new_node);
 			_free_stack(stack);
 			exit(EXIT_FAILURE);
 		}
-	}
-	i = atoi(data);
-	new_node->n = i;
+	new_node->n = (int)value;
 	if (*stack == NULL)
 	{
 		*stack = new_node;
