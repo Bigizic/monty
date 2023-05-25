@@ -57,6 +57,8 @@ int main(int ac, char *av[])
 *
 * @op_code: char type
 *
+* @monty_ptr: pointer to opening of file
+*
 * Return: void
 */
 void execute_opcode(stack_t **stack, unsigned int line_number,
