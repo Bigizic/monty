@@ -68,6 +68,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 		{"push", _push},
 		{"pall", _pall},
 		{"pint", _pint},
+		{"pop", _pop},
 		{"NULL", NULL}
 	};
 
@@ -90,7 +91,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 	}
 	if (code && func[i].opcode == NULL)
 	{
-		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, code);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
 		fclose(monty_ptr);
 		free(op_code);
 		_free_stack(*stack);
