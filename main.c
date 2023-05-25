@@ -93,7 +93,6 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 		_free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	return;
 }
 
 /**
