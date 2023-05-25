@@ -47,7 +47,7 @@ typedef struct instruction_s
 
 /* opcode prototypes */
 void _push(stack_t **stack, unsigned int line_number);
-
+void _pall(stack_t **stack, unsigned int line_number);
 
 /* function prototypes */
 void _opcodes(stack_t **stack, unsigned int line_number, char *buffer);
