@@ -49,7 +49,7 @@ int main(int ac, char *av[])
 	}
 	_free_stack(stack);
 	fclose(monty_ptr);
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
 /**
