@@ -45,6 +45,16 @@ void _push(stack_t **stack, unsigned int line_number)
 			add_queue(stack, i);
 }
 
+
+/**
+* add_node - add a node
+*
+* @stack: pointer to head
+*
+* @i: int type
+*
+* Return: void
+*/
 void add_node(stack_t **stack, int i)
 {
 	stack_t *new_node, *current;
@@ -66,6 +76,16 @@ void add_node(stack_t **stack, int i)
 	*stack = new_node;
 }
 
+
+/**
+* add_queue - adds a node to a queue
+*
+* @stack: pointer to head
+*
+* @i: int type
+*
+* Return: void
+*/
 void add_queue(stack_t **stack, int i)
 {
 	stack_t *new_node, *current;
