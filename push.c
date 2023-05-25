@@ -25,9 +25,9 @@ void _push(stack_t **stack, unsigned int line_number)
 		_free_stack(stack);
 		exit(EXIT_FAILURE); }
 	value = strtol(data, &endptr, 10);
-		if (!isdigit(value))
+		if (endptr == data)
 		{
-			fprintf(stderr, "L%d: usage: push integer2: %ld\n", line_number, value);
+			fprintf(stderr, "L%d: usage: push integer2: %s\n", line_number, data);
 			free(new_node);
 			_free_stack(stack);
 			exit(EXIT_FAILURE);
