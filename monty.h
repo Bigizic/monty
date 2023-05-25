@@ -45,10 +45,15 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
-* bus_s - a bus like struct that contains file name and file argument
+* struct bus_s - a bus like struct that contains file name
+* and file argumen
+* t
 * @data: char type
+*
 * @buffer: buffer to store file name
+*
 * @file: file opener
+*
 * @lifi: status
 *
 */
