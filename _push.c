@@ -13,21 +13,24 @@
 void _push(stack_t **stack, unsigned int line_number)
 {
 	char argument[128] = "";
-	unsigned int i;
+	size_t i, len;
 	char *argument_cp = argument;
 
 	argument_cp = strtok(NULL, " \t\r\n\v\f");
 
+	len = strlen(argument_cp);
 	if (argument_cp == NULL)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	for (i = 0; i < strlen(argument_cp); i++)
+	for (i = 0; i < len; i++)
 	{
 		if (!isdigit(argument_cp[i]) && argument_cp[0] != '-')
 		{
 			fprintf(stderr, "L%u: usage: push integer\n", line_number);
+			printf("Hello2\n");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -49,6 +52,7 @@ void add_node(stack_t **stack, int num)
 	if (first_stack == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
 
