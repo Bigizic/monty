@@ -12,18 +12,30 @@
 */
 void _push(stack_t **stack, unsigned int line_number)
 {
-	char *opcode_arg = strtok(NULL, " ");
-	int data;
+	char opcode_arg[128] = "";
+	size_t i = 0, len = 0;
+	char *arg_cp = opcode_arg;
+	
+	arg_cp = strtok(NULL, " ");
 
-	if (opcode_arg == NULL || !isdigit(opcode_arg))
+	if (arg_cp == NULL || !is_number(opcode_arg))
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
 
-	data = atoi(opcode_arg);
-	add_node(stack, data);
+	len = strlen(arg_cp);
+	for (i = 0; i < len; i++)
+		if (!isdigit(arg_cp[i]) && arg_cp[0] != '-')
+		{
+			dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_number);
+			free_stack(*stack);
+			exit(EXIT_FAILURE);
+		}
+	if (global_variable == 's')
+		add_node(stack, atoi(arg_cp));
+
 
 }
 
@@ -48,6 +60,7 @@ void add_node(stack_t **stack, int num)
 
 	first_stack->n = num;
 	first_stack->prev = NULL;
+	first_stack->next = NULL;
 
 	if (*stack == NULL)
 		*stack = first_stack;
@@ -61,40 +74,6 @@ void add_node(stack_t **stack, int num)
 
 
 /**
-* add_node_ - pushes an element to the stack
-*
-* @stack: double pointer
-*
-* @argument: int push
-*
-* Return: void
-*/
-void add_node_(stack_t **stack, int argument)
-{
-	stack_t *stack_cp, *last_stack;
-
-	stack_cp = malloc(sizeof(stack_t));
-
-	stack_cp->n = argument;
-	stack_cp->prev = NULL;
-	stack_cp->next = NULL;
-
-	if (*stack == NULL)
-		*stack = stack_cp;
-
-	else
-	{
-		last_stack = *stack;
-		while (last_stack->next != NULL)
-			last_stack = last_stack->next;
-
-		stack_cp->next = NULL;
-		stack_cp->prev = last_stack;
-		last_stack->next = stack_cp;
-	}
-}
-
-/**
 * is_number - checks if a string represents a valid number
 *
 * @str: string to check
@@ -103,6 +82,8 @@ void add_node_(stack_t **stack, int argument)
 */
 int is_number(char *str)
 {
+	int i;
+
 	if (str == NULL || *str == '\0')
 		return (0);
 
@@ -110,11 +91,11 @@ int is_number(char *str)
 		str++;
 	if (*str == '\0')
 		return (0);
-	while (*str != '\0')
+
+	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (!isdigit(*str))
+		if (!isdigit(str[i]))
 			return (0);
-		str++;
 	}
 	return (1);
 }
