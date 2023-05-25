@@ -13,7 +13,6 @@
 #define UNUSED __attribute__((unused));
 #define BUFFER_SIZE 1024
 
-extern char *data;
 
 /**
 * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -47,22 +46,29 @@ typedef struct instruction_s
 } instruction_t;
 
 
+typedef struct bus_s
+{
+	char *data;
+	char *buffer;
+	FILE *file;
+	int lifi;
+} bus_t;
+
+extern bus_t bus;
 
 /* opcode prototypes */
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
-void _pint(stack_t **stack, unsigned int line_number);
-void _pop(stack_t **stack, unsigned int line_number);
 
 
 
 
 
 /* function prototypes */
-void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code);
-void _free_stack(stack_t **stack);
-int space_check(char *get_line_string);
-
+void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code, FILE *monty_ptr);
+void _free_stack(stack_t *stack);
+void add_node(stack_t **stack, int i);
+void add_queue(stack_t **stack, int i);
 
 
 #endif
