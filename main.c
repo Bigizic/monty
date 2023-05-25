@@ -60,6 +60,7 @@ void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
 
 	instruction_t my_opcodes[] = {
 		{"push", _push},
+		{"pall", _pall},
 		{NULL, NULL}
 	};
 
