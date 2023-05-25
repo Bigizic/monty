@@ -7,6 +7,8 @@
 #include <string.h>
 
 
+extern char global_variable;
+
 /**
 * struct stack_s - doubly linked list representation of a stack (or queue)
 * @n: integer
