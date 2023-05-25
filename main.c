@@ -19,13 +19,12 @@ int main(int ac, char *av[])
 
 	*stack = NULL;
 	if (stack == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
+	{fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	if (ac != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
+	{fprintf(stderr, "USAGE: monty file\n");
+		free(stack);
 		exit(EXIT_FAILURE);
 	}
 	if (access(av[1], R_OK) == -1)
