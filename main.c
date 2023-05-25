@@ -54,7 +54,7 @@ int main(int ac, char *av[])
 *
 * @buffer: opcode to execute
 */
-void _opcodes(stack_t **stack, unsigned int line_number, char *buffer)
+void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
 {
 	int i = 0;
 
