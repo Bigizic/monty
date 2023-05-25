@@ -45,7 +45,7 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
-* struct bus_s - a bus like struct that contains file name
+* struct store_s - a bus like struct that contains file name
 * and file argumen
 * t
 * @data: char type
@@ -57,15 +57,15 @@ typedef struct instruction_s
 * @lifi: status
 *
 */
-typedef struct bus_s
+typedef struct store_s
 {
 	char *data;
 	char *buffer;
 	FILE *file;
 	int lifi;
-} bus_t;
+} store_t;
 
-extern bus_t bus;
+extern store_t bus;
 
 /* opcode prototypes */
 void _push(stack_t **stack, unsigned int line_number);
