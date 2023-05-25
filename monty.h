@@ -50,7 +50,7 @@ void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
 
 /* function prototypes */
-void _opcodes(stack_t **stack, unsigned int line_number, char *buffer);
+void _opcodes(stack_t **stack, char *opcode, unsigned int line_number);
 void free_stack(stack_t *stack);
 void add_node(stack_t **stack, int num);
 void add_node_(stack_t **stack, int argument);
