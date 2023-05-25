@@ -25,13 +25,13 @@ void _push(stack_t **stack, unsigned int line_number)
 		_free_stack(stack);
 		exit(EXIT_FAILURE); }
 	value = strtol(data, &endptr, 10);
-		if (endptr == data)
-		{
-			fprintf(stderr, "L%d: usage: push integer2: %s\n", line_number, data);
-			free(new_node);
-			_free_stack(stack);
-			exit(EXIT_FAILURE);
-		}
+	if (endptr == data)
+	{
+		fprintf(stderr, "L%d: usage: push integer2: %s\n", line_number, data);
+		free(new_node);
+		_free_stack(stack);
+		exit(EXIT_FAILURE);
+	}
 	new_node->n = value;
 	if (*stack == NULL)
 	{
