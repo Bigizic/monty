@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <errno.h>
 
+#define UNUSED __attribute__((unused));
 #define BUFFER_SIZE 1024
 
 extern char *data;
