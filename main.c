@@ -23,7 +23,8 @@ int main(int ac, char *av[])
 		exit(EXIT_FAILURE);
 	}
 	if (ac != 2)
-	{fprintf(stderr, "USAGE: monty file\n");
+	{
+		fprintf(stderr, "USAGE: monty file\n");
 		free(stack);
 		exit(EXIT_FAILURE);
 	}
