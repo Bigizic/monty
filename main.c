@@ -1,8 +1,7 @@
 #include "monty.h"
-#include <stdio.h>
-#include <stdlib.h>
 /* header */
 
+char global_variable = 's';
 /**
 * main - entry point
 *
@@ -19,6 +18,7 @@ int main(int ac, char *av[])
 	stack_t *stack_cp = NULL;
 	FILE *read_stream = NULL;
 	size_t buffer_len = 0;
+	char *arg = NULL;
 
 	if (ac != 2)
 	{
@@ -34,9 +34,9 @@ int main(int ac, char *av[])
 
 	while (getline(&buffer, &buffer_len, read_stream) != -1)
 	{
-		buffer[strcspn(buffer, "\r\n")] = '\0';
-
-		_opcodes(&stack_cp, line_number, buffer);
+		arg = strtok(buffer, " ");
+		if (arg != NULL && arg[0] != '#')
+			_opcodes(&stack_cp, line_number, arg);
 		line_number++;
 	}
 	free_stack(stack_cp);
@@ -59,7 +59,6 @@ int main(int ac, char *av[])
 void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
 {
 	int i = 0;
-	char *opcode = strtok(buffer_cp, " ");
 
 	instruction_t my_opcodes[] = {
 		{"push", _push},
@@ -69,7 +68,7 @@ void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
 
 	while (my_opcodes[i].opcode)
 	{
-		if (strcmp(my_opcodes[i].opcode, opcode) == 0)
+		if (strcmp(my_opcodes[i].opcode, buffer_cp) == 0)
 		{
 			my_opcodes[i].f(stack, line_number);
 			return;
