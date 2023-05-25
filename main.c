@@ -72,7 +72,8 @@ void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
 	instruction_t func[] = {
 		{"push", _push},
 		{"pall", _pall},
-		{NULL, NULL}
+		{"pint", _pint},
+		{"NULL", NULL}
 	};
 
 	for (i = 0; op_code[i] != '\0'; i++)
