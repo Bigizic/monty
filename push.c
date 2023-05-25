@@ -12,7 +12,7 @@
 void _push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = malloc(sizeof(stack_t));
-	long int value;
+	int value;
 	char *endptr;
 
 	if (new_node == NULL)
@@ -32,7 +32,7 @@ void _push(stack_t **stack, unsigned int line_number)
 			_free_stack(stack);
 			exit(EXIT_FAILURE);
 		}
-	new_node->n = (int)value;
+	new_node->n = value;
 	if (*stack == NULL)
 	{
 		*stack = new_node;
