@@ -15,7 +15,7 @@
 int main(int ac, char *av[])
 {
 	unsigned int line_number = 1;
-	char *buffer = NULL;
+	char *buffer = NULL, *buffer_cp = NULL;
 	stack_t *stack_cp = NULL;
 	FILE *read_stream = NULL;
 	size_t buffer_len = 0;
@@ -33,8 +33,9 @@ int main(int ac, char *av[])
 	}
 	while (getline(&buffer, &buffer_len, read_stream) != -1)
 	{
-		if (buffer != NULL)
-			_opcodes(&stack_cp, line_number, buffer);
+		buffer_cp = strtok(buffer, " \t\r\n\v\f");
+		if (buffer_cp != NULL)
+			_opcodes(&stack_cp, line_number, buffer_cp);
 		line_number++;
 	}
 	free_stack(stack_cp);
@@ -64,14 +65,14 @@ void _opcodes(stack_t **stack, unsigned int line_number, char *buffer)
 
 	while (my_opcodes[i].opcode)
 	{
-		if (strcmp(my_opcodes[i].opcode, buffer) == 0)
+		if (strcmp(my_opcodes[i].opcode, buffer_cp) == 0)
 		{
 			my_opcodes[i].f(stack, line_number);
 			return;
 		}
 		i++;
 	}
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, buffer);
+	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, buffer_cp);
 	free_stack(*stack);
 	exit(EXIT_FAILURE);
 }
