@@ -70,6 +70,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 		{"pint", _pint},
 		{"pop", _pop},
 		{"swap", _swap},
+		{"add", _add},
 		{"NULL", NULL}
 	};
 
