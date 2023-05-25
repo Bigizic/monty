@@ -15,11 +15,10 @@
 int main(int ac, char *av[])
 {
 	unsigned int line_number = 1;
-	char *buffer = NULL, *buffer_cp = NULL;
+	char *buffer = NULL;
 	stack_t *stack_cp = NULL;
 	FILE *read_stream = NULL;
 	size_t buffer_len = 0;
-	ssize_t read;
 
 	if (ac != 2)
 	{
@@ -32,17 +31,18 @@ int main(int ac, char *av[])
 		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
-	read = getline(&buffer, &buffer_len, read_stream);
-	buffer_cp = buffer;
-	while (read != -1)
+
+	while (getline(&buffer, &buffer_len, read_stream) != -1)
 	{
-		buffer_cp[strcspn(buffer_cp, "\r\n")] = '\0';
-		_opcodes(&stack_cp, line_number, buffer_cp);
+		buffer[strcspn(buffer, "\r\n")] = '\0';
+
+		_opcodes(&stack_cp, line_number, buffer);
 		line_number++;
 	}
 	free_stack(stack_cp);
 
 	stack_cp = NULL;
+	free(buffer);
 	fclose(read_stream);
 	exit(EXIT_SUCCESS);
 }
@@ -68,7 +68,7 @@ void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
 
 	while (my_opcodes[i].opcode)
 	{
-		if (strcmp(buffer_cp, my_opcodes[i].opcode) == 0)
+		if (strcmp(my_opcodes[i].opcode, buffer_cp) == 0)
 		{
 			my_opcodes[i].f(stack, line_number);
 			return;
