@@ -15,7 +15,7 @@ void _push(stack_t **stack, unsigned int line_number)
 	char opcode_arg[128] = "";
 	size_t i = 0, len = 0;
 	char *arg_cp = opcode_arg;
-	
+
 	arg_cp = strtok(NULL, " ");
 
 	if (arg_cp == NULL || !is_number(opcode_arg))
@@ -78,7 +78,7 @@ void add_node(stack_t **stack, int num)
 *
 * @str: string to check
 *
-* Return 1 on sunccess otherwise 0
+* Return: 1 on sunccess otherwise 0
 */
 int is_number(char *str)
 {
