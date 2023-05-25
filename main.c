@@ -1,7 +1,6 @@
 #include "monty.h"
 /* header */
 
-char global_variable = 's';
 /**
 * main - entry point
 *
@@ -54,7 +53,7 @@ int main(int ac, char *av[])
 *
 * @line_number: counter for number of lines of the file
 *
-* @buffer: opcode to execute
+* @buffer_cp: opcode to execute
 */
 void _opcodes(stack_t **stack, unsigned int line_number, char *buffer_cp)
 {
