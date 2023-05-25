@@ -15,7 +15,9 @@ int main(int ac, char *av[])
 	FILE *monty_ptr;
 	char buffer[BUFFER_SIZE], *get_line;
 	unsigned int line_number = 1;
-	stack_t **stack = malloc(sizeof(stack_t *));
+	stack_t **stack = NULL;
+	
+	malloc(sizeof(stack_t *));
 
 	*stack = NULL;
 	if (stack == NULL)
@@ -77,6 +79,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
 		{"NULL", NULL}
 	};
 
+	data = NULL;
 	for (i = 0; op_code[i] != '\0'; i++)
 	{
 		if (op_code[i] == '\n')
