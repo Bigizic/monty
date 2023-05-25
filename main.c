@@ -1,5 +1,5 @@
 #include "monty.h"
-char *data = NULL;
+bus_t bus = {NULL, NULL, NULL, 0};
 
 /**
 * main - entry point
@@ -13,41 +13,35 @@ char *data = NULL;
 int main(int ac, char *av[])
 {
 	FILE *monty_ptr;
-	char buffer[BUFFER_SIZE], *get_line;
+	char *buffer;
+	size_t size = 0;
+	ssize_t get_line = 1;
+	stack_t *stack = NULL;
 	unsigned int line_number = 1;
-	stack_t **stack = NULL;
-	
-	malloc(sizeof(stack_t *));
 
-	*stack = NULL;
-	if (stack == NULL)
-	{fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE); }
 	if (ac != 2)
-	{fprintf(stderr, "USAGE: monty file\n");
-		free(stack);
-		exit(EXIT_FAILURE); }
-	if (access(av[1], R_OK) == -1)
 	{
-		fprintf(stderr, "Error: can't open file %s\n", av[1]);
+		fprintf(stderr, "USAGE: monty file\n");
 		free(stack);
 		exit(EXIT_FAILURE);
 	}
 	monty_ptr = fopen(av[1], "r");
-	if (monty_ptr == NULL)
+	bus.file = monty_ptr;
+	if (!monty_ptr)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
-		free(stack);
+		fprintf(stderr, "Error: can't open file %s\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
-	while (1)
+	while (get_line > 0)
 	{
-		get_line = fgets(buffer, 255, (FILE *)monty_ptr);
-		if (get_line == NULL)
-			break;
-		if (space_check(get_line) != 0)
-			execute_opcode(stack, line_number, get_line);
+		buffer = NULL;
+		get_line = getline(&buffer, &size, monty_ptr);
+		bus.buffer = buffer;
 		line_number++;
+
+		if (get_line > 0)
+			execute_opcode(&stack, line_number, buffer, monty_ptr);
+		free(buffer);
 	}
 	_free_stack(stack);
 	fclose(monty_ptr);
@@ -65,43 +59,40 @@ int main(int ac, char *av[])
 *
 * Return: void
 */
-void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
+void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code, FILE *monty_ptr)
 {
-	int i;
-	char *delim = " ";
-	char *codes, *temp_data;
-
 	instruction_t func[] = {
 		{"push", _push},
 		{"pall", _pall},
-		{"pint", _pint},
-		{"pop", _pop},
-		{"NULL", NULL}
+		{NULL, NULL}
 	};
 
-	data = NULL;
-	for (i = 0; op_code[i] != '\0'; i++)
-	{
-		if (op_code[i] == '\n')
-			op_code[i] = '\0';
-	}
+	unsigned int i = 0;
+	char *code;
 
-	codes = strtok(op_code, delim);
-	temp_data = strtok(NULL, delim);
-	if (temp_data != NULL)
-		data = temp_data;
-	for (i = 0; i < 13; i++)
+	code = strtok(op_code, " \n\t");
+	if (code && code[0] == '#')
+		return;
+	bus.data = strtok(NULL, " \n\t");
+
+	while (func[i].opcode && code)
 	{
-		if (strcmp(func[i].opcode, codes) == 0)
+		if (strcmp(code, func[i].opcode) == 0)
 		{
 			func[i].f(stack, line_number);
 			return;
 		}
+		i++;
 	}
-
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, op_code);
-	_free_stack(stack);
-	exit(EXIT_FAILURE);
+	if (code && func[i].opcode == NULL)
+	{
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, code);
+		fclose(monty_ptr);
+		free(op_code);
+		_free_stack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	return;
 }
 
 /**
@@ -111,15 +102,15 @@ void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
 *
 * Return: void
 */
-void _free_stack(stack_t **stack)
+void _free_stack(stack_t *stack)
 {
 	stack_t *current;
 
-	while (*stack != NULL)
+	current = stack;
+	while (stack)
 	{
-		current = (*stack)->next;
-		free(*stack);
-		*stack = current;
+		current = stack->next;
+		free(stack);
+		stack = current;
 	}
-	free(stack);
 }
