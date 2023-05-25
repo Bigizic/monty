@@ -15,12 +15,13 @@ void _push(stack_t **stack, unsigned int line_number)
 	char *opcode_arg = strtok(NULL, " ");
 	int data;
 
-	if (opcode_arg == NULL || !is_number(opcode_arg))
+	if (opcode_arg == NULL || !isdigit(opcode_arg))
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
+
 	data = atoi(opcode_arg);
 	add_node(stack, data);
 
@@ -105,12 +106,15 @@ int is_number(char *str)
 	if (str == NULL || *str == '\0')
 		return (0);
 
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 		str++;
-	for (; *str != '\0'; str++)
+	if (*str == '\0')
+		return (0);
+	while (*str != '\0')
 	{
-		if (*str < '0' || *str > '9')
+		if (!isdigit(*str))
 			return (0);
+		str++;
 	}
 	return (1);
 }
