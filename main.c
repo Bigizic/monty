@@ -14,7 +14,6 @@ int main(int ac, char *av[])
 {
 	FILE *monty_ptr;
 	char buffer[BUFFER_SIZE], *get_line;
-	char *op_code;
 	unsigned int line_number = 1;
 	stack_t **stack = malloc(sizeof(stack_t *));
 
@@ -35,10 +34,10 @@ int main(int ac, char *av[])
 		free(stack);
 		exit(EXIT_FAILURE);
 	}
-	monty_ptr = fopen(argv[1], "r");
+	monty_ptr = fopen(av[1], "r");
 	if (monty_ptr == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
 		free(stack);
 		exit(EXIT_FAILURE);
 	}
