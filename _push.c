@@ -33,8 +33,7 @@ void _push(stack_t **stack, unsigned int line_number)
 			free_stack(*stack);
 			exit(EXIT_FAILURE);
 		}
-	if (global_variable == 's')
-		add_node(stack, atoi(arg_cp));
+	add_node(stack, atoi(arg_cp));
 
 
 }
