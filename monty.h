@@ -10,7 +10,6 @@
 #include <unistd.h>
 #include <errno.h>
 
-#define UNUSED __attribute__((unused));
 #define BUFFER_SIZE 1024
 
 
@@ -45,7 +44,14 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-
+/**
+* bus_s - a bus like struct that contains file name and file argument 
+* @data: char type
+* @buffer: buffer to store file name
+* @file: file opener
+* @lifi: status
+*
+*/
 typedef struct bus_s
 {
 	char *data;
@@ -65,7 +71,8 @@ void _pall(stack_t **stack, unsigned int line_number);
 
 
 /* function prototypes */
-void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code, FILE *monty_ptr);
+void execute_opcode(stack_t **stack, unsigned int line_number,
+		char *op_code, FILE *monty_ptr);
 void _free_stack(stack_t *stack);
 void add_node(stack_t **stack, int i);
 void add_queue(stack_t **stack, int i);
