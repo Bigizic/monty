@@ -24,6 +24,7 @@ int main(int ac, char *av[])
 	}
 	if (ac != 2)
 	{fprintf(stderr, "USAGE: monty file\n");
+		free(stack);
 		exit(EXIT_FAILURE);
 	}
 	if (access(av[1], R_OK) == -1)
