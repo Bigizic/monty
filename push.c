@@ -24,7 +24,7 @@ void _push(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		free(push);
-		freelist(stack);
+		_free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 	for (i = 0; data[i] != '\0'; i++)
