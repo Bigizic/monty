@@ -78,7 +78,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
 	for (i = 0; op_code[i] != '\0'; i++)
 	{
 		if (op_code[i] == '\n')
-			op_code[i] = '\0';
+		op_code[i] = '\0';
 	}
 
 	codes = strtok(op_code, delim);
