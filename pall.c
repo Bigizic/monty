@@ -11,7 +11,12 @@
 */
 void _pall(stack_t **stack, __attribute__((unused))unsigned int line_number)
 {
-	stack_t *current = *stack;
+	stack_t *current;
+
+	if (*stack == NULL)
+		return;
+
+	current = *stack;
 
 	while (current != NULL)
 	{
