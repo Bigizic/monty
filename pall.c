@@ -9,16 +9,13 @@
 *
 * Return: void
 */
-void _pall(stack_t **stack, __attribute__((unused))unsigned int line_number)
+void _pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current;
+	stack_t *current = *stack;
 
-	if (*stack == NULL)
-		return;
+	(void)line_number;
 
-	current = *stack;
-
-	while (current != NULL)
+	while (current)
 	{
 		printf("%d\n", current->n);
 		current = current->next;
