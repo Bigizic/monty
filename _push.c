@@ -12,30 +12,15 @@
 */
 void _push(stack_t **stack, unsigned int line_number)
 {
-	char opcode_arg[128] = "";
-	size_t i = 0, len = 0;
-	char *arg_cp = opcode_arg;
+	char *arg = strtok(NULL, " \n");
 
-	arg_cp = strtok(NULL, " ");
 
-	if (arg_cp == NULL || !is_number(opcode_arg))
+	if (arg == NULL)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-
-	len = strlen(arg_cp);
-	for (i = 0; i < len; i++)
-		if (!isdigit(arg_cp[i]) && arg_cp[0] != '-')
-		{
-			dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_number);
-			free_stack(*stack);
-			exit(EXIT_FAILURE);
-		}
-	add_node(stack, atoi(arg_cp));
-
-
+	add_node(stack, atoi(arg));
 }
 
 /**
@@ -59,16 +44,11 @@ void add_node(stack_t **stack, int num)
 
 	first_stack->n = num;
 	first_stack->prev = NULL;
-	first_stack->next = NULL;
+	first_stack->next = *stack;
 
-	if (*stack == NULL)
-		*stack = first_stack;
-	else
-	{
-		first_stack->next = *stack;
+	if (*stack != NULL)
 		(*stack)->prev = first_stack;
-		*stack = first_stack;
-	}
+	*stack = first_stack;
 }
 
 
