@@ -67,7 +67,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
 {
 	int i;
 	char *delim = " ";
-	char *codes;
+	char *codes, *temp_data;
 
 	instruction_t func[] = {
 		{"push", _push},
@@ -84,7 +84,9 @@ void execute_opcode(stack_t **stack, unsigned int line_number, char *op_code)
 	}
 
 	codes = strtok(op_code, delim);
-	data = strtok(NULL, delim);
+	temp_data = strtok(NULL, delim);
+	if (temp_data != NULL)
+		data = temp_data;
 	for (i = 0; i < 13; i++)
 	{
 		if (strcmp(func[i].opcode, codes) == 0)
