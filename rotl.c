@@ -15,7 +15,9 @@ void _rotl(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack, *rotate_node;
 
-	if (*satck == NULL || (*stack)->next == NULL)
+	(void)line_number;
+
+	if (*stack == NULL || (*stack)->next == NULL)
 		return;
 
 	rotate_node = (*stack)->next;
