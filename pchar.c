@@ -32,5 +32,5 @@ void _pchar(stack_t **stack, unsigned int line_number)
 		_free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	printf ("%c\n", h->n);
+	printf("%c\n", h->n);
 }
