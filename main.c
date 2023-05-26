@@ -83,12 +83,6 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 	unsigned int i = 0;
 	char *code;
 
-	for (i = 0; op_code[i] != '\0'; i++)
-	{
-		if (op_code[i] == '\n')
-			op_code[i] = '\0';
-	}
-
 	code = strtok(op_code, " \n\t");
 	if (code && code[0] == '#')
 		return;
@@ -103,8 +97,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
 	fclose(monty_ptr);
 	free(op_code);
-	if (*stack != NULL)
-		_free_stack(*stack);
+	_free_stack(*stack);
 	exit(EXIT_FAILURE);
 }
 
