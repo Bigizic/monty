@@ -15,7 +15,7 @@ void _mul(stack_t **stack, unsigned int line_number)
 {
 	stack_t *h = *stack;
 	int len = 0, x;
-	
+
 	while (h)
 	{
 		h = h->next;
