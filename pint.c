@@ -15,11 +15,18 @@ void _pint(stack_t **stack, unsigned int line_number)
 {
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		fclose(bus.file);
 		free(bus.buffer);
 		_free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", (*stack)->n);
+	if ((*stack)->prev == NULL)
+		printf("%d\n", (*stack)->n);
+	else
+	{
+		while ((*stack)->prev != NULL)
+			(*stack) = (*stack)->prev;
+		printf("%d\n", (*stack)->n);
+	}
 }
