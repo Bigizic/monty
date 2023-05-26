@@ -90,10 +90,10 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 
 	while (func[i].opcode && code)
 	{
+		i++;
 		if (strcmp(code, func[i].opcode) == 0)
 		{func[i].f(stack, line_number);
 			return; }
-		i++;
 	}
 	if (code && func[i].opcode == NULL)
 	{fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
