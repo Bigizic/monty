@@ -50,7 +50,7 @@ void _mod(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	h->next->n = h->n % h->next->n;
+	h->next->n = h->next->n % h->n;
 	*stack = h->next;
 	free(h);
 	h->prev = NULL;
