@@ -88,17 +88,21 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 		return;
 	bus.data = strtok(NULL, " \n\t");
 
-	for (i = 0; i < 15; i++)
+	while (func[i].opcode && code)
 	{
 		if (strcmp(code, func[i].opcode) == 0)
 		{func[i].f(stack, line_number);
 			return; }
+		else
+		{
+			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
+			fclose(monty_ptr);
+			free(op_code);
+			_free_stack(*stack);
+			exit(EXIT_FAILURE);
+		}
+		i++;
 	}
-	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
-	fclose(monty_ptr);
-	free(op_code);
-	_free_stack(*stack);
-	exit(EXIT_FAILURE);
 }
 
 /**
