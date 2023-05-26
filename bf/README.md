@@ -3,7 +3,7 @@
 ### ASCII VALUE:
 a = 97 and the rest of the alphabet is gotten by incrementing {a++} i.e adding one to a to get the next.
 
-To get the value of A CAPITAL letter, minus 32 from it's ASCII value
+To get the value of CAPITAL letter, minus 32 from it's ASCII value
 we have 's' which is 115. To get "S", 115 - 32 = 83
 
 
