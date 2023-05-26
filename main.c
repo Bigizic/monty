@@ -95,7 +95,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 			return; }
 		i++;
 	}
-	if (code && func[i].opcode == NULL || strcmp(func[i].opcode, code) != 0)
+	if (code && func[i].opcode == NULL)
 	{fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
 		fclose(monty_ptr);
 		free(op_code);
