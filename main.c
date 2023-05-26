@@ -77,6 +77,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 		{"mul", _mul},
 		{"mod", _mod},
 		{"pchar", _pchar},
+		{"pstr", _pstr},
 		{"NULL", NULL}
 	};
 
