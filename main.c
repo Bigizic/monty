@@ -88,7 +88,7 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 		return;
 	bus.data = strtok(NULL, " \n\t");
 
-	for (i = 0; i < 13; i++)
+	for (i = 0; i < 15; i++)
 	{
 		if (strcmp(code, func[i].opcode) == 0)
 		{func[i].f(stack, line_number);
