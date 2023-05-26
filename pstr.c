@@ -22,7 +22,7 @@ void _pstr(stack_t **stack, unsigned int line_number)
 
 	while (h)
 	{
-		if (h->n > 127 || h-> <= 0)
+		if (h->n > 127 || h->n <= 0)
 			break;
 		printf("%c", h->n);
 		h = h->next;
