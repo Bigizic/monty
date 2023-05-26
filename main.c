@@ -17,7 +17,7 @@ int main(int ac, char *av[])
 	size_t size = 0;
 	ssize_t get_line = 1;
 	stack_t *stack = NULL;
-	unsigned int line_number = 1;
+	unsigned int line_number = 0;
 
 	if (ac != 2)
 	{
