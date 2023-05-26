@@ -91,20 +91,16 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 	while (func[i].opcode && code)
 	{
 		if (strcmp(code, func[i].opcode) == 0)
-		{
-			func[i].f(stack, line_number);
-			return;
-		}
+		{func[i].f(stack, line_number);
+			return; }
 		i++;
 	}
 	if (code && func[i].opcode == NULL)
-	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
+	{fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
 		fclose(monty_ptr);
 		free(op_code);
 		_free_stack(*stack);
-		exit(EXIT_FAILURE);
-	}
+		exit(EXIT_FAILURE); }
 }
 
 /**
