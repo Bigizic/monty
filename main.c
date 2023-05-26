@@ -83,24 +83,29 @@ void execute_opcode(stack_t **stack, unsigned int line_number,
 	unsigned int i = 0;
 	char *code;
 
+	for (i = 0; op_code[i] != '\0'; i++)
+	{
+		if (op_code[i] == '\n')
+			op_code[i] = '\0';
+	}
+
 	code = strtok(op_code, " \n\t");
 	if (code && code[0] == '#')
 		return;
 	bus.data = strtok(NULL, " \n\t");
 
-	while (func[i].opcode && code)
+	for (i = 0; i < 13; i++)
 	{
 		if (strcmp(code, func[i].opcode) == 0)
 		{func[i].f(stack, line_number);
 			return; }
-		i++;
 	}
-	if (code && func[i].opcode == NULL)
-	{fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
-		fclose(monty_ptr);
-		free(op_code);
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, code);
+	fclose(monty_ptr);
+	free(op_code);
+	if (*stack != NULL)
 		_free_stack(*stack);
-		exit(EXIT_FAILURE); }
+	exit(EXIT_FAILURE);
 }
 
 /**
