@@ -23,7 +23,7 @@ void _push(stack_t **stack, unsigned int line_number)
 				x = 1; }
 		if (x == 1)
 		{
-			fprintf(stderr, "L%d: usage: push integer1\n", line_number);
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			fclose(bus.file);
 			free(bus.buffer);
 			_free_stack(*stack);
@@ -32,7 +32,7 @@ void _push(stack_t **stack, unsigned int line_number)
 	}
 		else
 		{
-			fprintf(stderr, "L%d: usage: push integer2:\n", line_number);
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			fclose(bus.file);
 			free(bus.buffer);
 			_free_stack(*stack);
