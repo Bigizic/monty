@@ -29,7 +29,7 @@ int main(int ac, char *av[])
 	bus.file = monty_ptr;
 	if (!monty_ptr)
 	{
-		fprintf(stderr, "Error: can't open file %s\n", av[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
 	while (get_line > 0)
