@@ -100,6 +100,7 @@ void add_queue(stack_t **stack, int i)
 	}
 	new_node->n = i;
 	new_node->next = NULL;
+	new_node->prev = NULL;
 
 	if (current)
 	{
