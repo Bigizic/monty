@@ -1,5 +1,5 @@
 # monty
 
-<img src="https://pbs.twimg.com/media/CFYYWy6UEAE9Ow-.png" height="70" width="150">
+<img src="https://pbs.twimg.com/media/CFYYWy6UEAE9Ow-.png" height="50%" width="70%">
 
 
